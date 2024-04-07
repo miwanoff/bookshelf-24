@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import booksData from "./books.js";
 import logo from "./logo.svg";
 import BookItem from "./BookItem.jsx";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // function Hello() {
 //   return (
@@ -34,15 +36,21 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header className="header" />
-        {this.state.books.map((book) => {
-          console.log(book.id);
-          return (
-            <div key={book.id}>
-              <BookItem book={book} removeBook={this.removeBook} />
-            </div>
-          );
-        })}
+        <Header className="container-fluid p-5 bg-dark text-primary text-center" />
+        <div className="container-fluid text-center">
+          <div className="row justify-content-center">
+            {this.state.books.map((book) => {
+              // console.log(book.id);
+              return (
+                <div className="col-sm-4 col-12" key={book.id}>
+                  <div className="card text-center my-5 p-3">
+                    <BookItem book={book} removeBook={this.removeBook} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }
@@ -56,7 +64,7 @@ function Header(props) {
   return (
     <div className={props.className}>
       <Image src={logo} />
-      <h1>Книжковий магазин</h1>
+      <h1 className="display-2">Книжковий магазин</h1>
     </div>
   );
 }
