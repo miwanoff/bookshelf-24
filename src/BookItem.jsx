@@ -9,12 +9,12 @@ const BookItem = (props) => {
         <h4>{props.book.name}</h4>
       </div>
       <Image src={props.book.imageCover} />
-      <button
-        className="add_item btn btn-lg btn-warning"
-        onClick={props.removeBook.bind(null, props.book)}
-      >
+      <button        
+        onClick={props.removeBook.bind(null, props.book)} className="add_item btn btn-lg btn-warning">
         Delete
       </button>
+      <button onClick={props.addBookToCart.bind(null, props.book)} className="btn btn-lg btn-primary mx-1" >Buy</button>
+
     </div>
   );
 };
