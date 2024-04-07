@@ -36,17 +36,22 @@ class App extends React.Component {
   };
 
   addBookToCart = (book) => {
-    //console.log(book);
     const goods = this.state.cart;
-    goods.push(book);
-    //console.log(goods);
+    if (!goods.includes(book)) goods.push(book);
+    else book.count++;
     this.setState({
       cart: goods,
     });
   };
 
   deleteBookFromCart = (book) => {
-    const goods = this.state.cart.filter((item) => item.id !== book.id);
+    let goods;
+    if (book.count === 1)
+      goods = this.state.cart.filter((item) => item.id !== book.id);
+    else
+      goods = this.state.cart.filter((item) =>
+        item.id === book.id ? book.count-- : book.count
+      );
     this.setState({
       cart: goods,
     });
@@ -63,7 +68,11 @@ class App extends React.Component {
               return (
                 <div className="col-sm-4 col-12" key={book.id}>
                   <div className="card text-center my-5 p-3">
-                    <BookItem book={book} removeBook={this.removeBook}   addBookToCart={this.addBookToCart} />
+                    <BookItem
+                      book={book}
+                      removeBook={this.removeBook}
+                      addBookToCart={this.addBookToCart}
+                    />
                   </div>
                 </div>
               );
@@ -77,9 +86,10 @@ class App extends React.Component {
             {this.state.cart.map((book) => (
               <li key={book.id} className="list-group-item">
                 <div className="row">
-                  <div className="col-4">{book.name}</div>
+                  <div className="col-3">{book.name}</div>
                   <div className="col-3">{book.author}</div>
                   <div className="col-2">{book.price}</div>
+                  <div className="col-1">{book.count}</div>
                   <div className="col-3">
                     <button
                       onClick={this.deleteBookFromCart.bind(this, book)}
