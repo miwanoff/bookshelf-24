@@ -20,15 +20,26 @@ class App extends React.Component {
     };
   }
 
+  removeBook = (book) => {
+    const updateBooks = this.state.books.filter(function (item) {
+      return item.id !== book.id;
+    });
+    console.log(updateBooks);
+    this.setState({
+      books: updateBooks,
+    });
+  };
+
   render() {
     return (
       <div>
         <Header className="header" />
         {this.state.books.map((book) => {
-          // console.log(book.id);
+          console.log(book.id);
           return (
             <div key={book.id}>
               <p>{book.name}</p>
+              <button onClick={this.removeBook.bind(this, book)}>Delete</button>
             </div>
           );
         })}
