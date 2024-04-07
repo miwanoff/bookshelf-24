@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import booksData from "./books.js";
 import logo from "./logo.svg";
+import BookItem from "./BookItem.jsx";
 
 // function Hello() {
 //   return (
@@ -38,8 +39,7 @@ class App extends React.Component {
           console.log(book.id);
           return (
             <div key={book.id}>
-              <p>{book.name}</p>
-              <button onClick={this.removeBook.bind(this, book)}>Delete</button>
+              <BookItem book={book} removeBook={this.removeBook} />
             </div>
           );
         })}
