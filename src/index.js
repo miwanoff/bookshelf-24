@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import booksData from "./books.js";
+import logo from "./logo.svg";
 
 // function Hello() {
 //   return (
@@ -22,7 +23,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1 style={{ color: "red" }}>Hello, world!</h1>
+        <Header className="header" />
         {this.state.books.map((book) => {
           // console.log(book.id);
           return (
@@ -31,10 +32,22 @@ class App extends React.Component {
             </div>
           );
         })}
-
       </div>
     );
   }
+}
+
+function Image(props) {
+  return <img src={props.src} alt="logo" style={{ width: "150px" }} />;
+}
+
+function Header(props) {
+  return (
+    <div className={props.className}>
+      <Image src={logo} />
+      <h1>Книжковий магазин</h1>
+    </div>
+  );
 }
 
 // ReactDOM.createRoot(document.getElementById("root")).render(<Hello />);
