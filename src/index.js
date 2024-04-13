@@ -6,6 +6,7 @@ import BookItem from "./BookItem.jsx";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "./Image.jsx";
+import SearchPanel from "./SearchPanel.jsx";
 import "./books.css";
 
 // function Hello() {
@@ -44,22 +45,21 @@ class App extends React.Component {
     this.state = {
       books: booksData,
       cart: this.getBookData().length ? this.getBookData() : [],
+      term: "Гаррі",
     };
   }
 
-    // Получаем данные из LocalStorage
-    getBookData = () => {
-      console.log("books");
-      return localStorage.getItem("books")?JSON.parse(localStorage.getItem("books")):[];
-      //return JSON.parse(localStorage.getItem("books"));
-      
-    };
-  
-    // Записываем данные в LocalStorage
-    setBookData = (o) => {
-      localStorage.setItem("books", JSON.stringify(o));
-     // return false;
-    };
+  // Отримати данні з LocalStorage
+  getBookData = () => {
+    return localStorage.getItem("books")
+      ? JSON.parse(localStorage.getItem("books"))
+      : [];
+  };
+
+  // Запиати данні в LocalStorage
+  setBookData = (o) => {
+    localStorage.setItem("books", JSON.stringify(o));
+  };
 
   removeBook = (book) => {
     const updateBooks = this.state.books.filter(function (item) {
@@ -95,15 +95,30 @@ class App extends React.Component {
     this.setBookData(goods);
   };
 
-
+  searchBook = (items, term) => {
+    if (term.trim().length === 0) {
+      return items;
+    }
+    return items.filter((item) => {
+      return item.name.indexOf(term) > -1;
+    });
+  };
 
   render() {
+    const { books, cart, term } = this.state;
+    const visibleBooks = this.searchBook(books, term);
     return (
       <div>
         <Header className="container-fluid p-5 bg-dark text-primary text-center" />
+
         <div className="container-fluid text-center">
+          <div className="row">
+            <div className="search-panel col-3 my-3">
+              <SearchPanel />
+            </div>
+          </div>
           <div className="row justify-content-center">
-            {this.state.books.map((book) => {
+            {visibleBooks.map((book) => {
               // console.log(book.id);
               return (
                 <div className="col-sm-4 col-12" key={book.id}>
@@ -121,9 +136,9 @@ class App extends React.Component {
         </div>
         <div className="container-fluid text-center">
           <h4>Кошик товарів</h4>
-          <p>Кількість книг: {this.state.cart.length} </p>
+          <p>Кількість книг: {cart.length} </p>
           <ul className="list-group">
-            {this.state.cart.map((book) => (
+            {cart.map((book) => (
               <li key={book.id} className="list-group-item">
                 <div className="row">
                   <div className="col-3">{book.name}</div>
@@ -145,12 +160,12 @@ class App extends React.Component {
           </ul>
           <div className="row">
             <div className="col-12">
-              <Count goods={this.state.cart} />
+              <Count goods={cart} />
             </div>
           </div>
           <div className="row">
             <div className="col-12">
-              <Sum goods={this.state.cart} />
+              <Sum goods={cart} />
             </div>
           </div>
         </div>
