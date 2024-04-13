@@ -5,6 +5,7 @@ import logo from "./logo.svg";
 import BookItem from "./BookItem.jsx";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Image from "./Image.jsx";
 // import Image from "./Image.jsx";
 
 // function Hello() {
@@ -15,6 +16,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //     </div>
 //   );
 // }
+
+class Sum extends React.Component {
+  render() {
+    let sum = 0;
+    this.props.goods.forEach((book) => {
+      console.log(book.price);
+      sum += +(book.price * book.count);
+    });
+    return <div> Суммарная стоимость: {sum.toFixed(2)} </div>;
+  }
+}
+
+class Count extends React.Component {
+  render() {
+    let count = 0;
+    this.props.goods.forEach((book) => {
+      count += book.count;
+    });
+    return <div> Количество книг в корзине: {count} </div>;
+  }
+}
 
 class App extends React.Component {
   constructor() {
@@ -103,15 +125,25 @@ class App extends React.Component {
               </li>
             ))}
           </ul>
+          <div className="row">
+                <div className="col-12">
+                  <Count goods={this.state.cart} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12">
+                  <Sum goods={this.state.cart} />
+                </div>
+              </div>
         </div>
       </div>
     );
   }
 }
 
-function Image(props) {
-  return <img src={props.src} alt="logo" style={{ width: "150px" }} />;
-}
+// function Image(props) {
+//   return <img src={props.src} alt="logo" style={{ width: "150px" }} />;
+// }
 
 function Header(props) {
   return (

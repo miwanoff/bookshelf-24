@@ -7,6 +7,7 @@ const BookItem = (props) => {
     <div>
       <div className="card-title">
         <h4>{props.book.name}</h4>
+        <h5>{props.book.author}</h5>
       </div>
       <Image src={props.book.imageCover} />
       <button        
