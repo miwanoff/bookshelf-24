@@ -6,7 +6,8 @@ import BookItem from "./BookItem.jsx";
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "./Image.jsx";
-// import Image from "./Image.jsx";
+import "./books.css";
+
 
 // function Hello() {
 //   return (
@@ -149,7 +150,7 @@ function Header(props) {
   return (
     <div className={props.className}>
       <Image src={logo} />
-      <h1 className="display-2">Книжковий магазин</h1>
+      <h1 className="display-2">Книгарня</h1>
     </div>
   );
 }
