@@ -8,7 +8,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "./Image.jsx";
 import "./books.css";
 
-
 // function Hello() {
 //   return (
 //     <div>
@@ -44,9 +43,23 @@ class App extends React.Component {
     super();
     this.state = {
       books: booksData,
-      cart: [],
+      cart: this.getBookData().length ? this.getBookData() : [],
     };
   }
+
+    // Получаем данные из LocalStorage
+    getBookData = () => {
+      console.log("books");
+      return localStorage.getItem("books")?JSON.parse(localStorage.getItem("books")):[];
+      //return JSON.parse(localStorage.getItem("books"));
+      
+    };
+  
+    // Записываем данные в LocalStorage
+    setBookData = (o) => {
+      localStorage.setItem("books", JSON.stringify(o));
+     // return false;
+    };
 
   removeBook = (book) => {
     const updateBooks = this.state.books.filter(function (item) {
@@ -65,6 +78,7 @@ class App extends React.Component {
     this.setState({
       cart: goods,
     });
+    this.setBookData(goods);
   };
 
   deleteBookFromCart = (book) => {
@@ -78,7 +92,10 @@ class App extends React.Component {
     this.setState({
       cart: goods,
     });
+    this.setBookData(goods);
   };
+
+
 
   render() {
     return (
@@ -127,15 +144,15 @@ class App extends React.Component {
             ))}
           </ul>
           <div className="row">
-                <div className="col-12">
-                  <Count goods={this.state.cart} />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-12">
-                  <Sum goods={this.state.cart} />
-                </div>
-              </div>
+            <div className="col-12">
+              <Count goods={this.state.cart} />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12">
+              <Sum goods={this.state.cart} />
+            </div>
+          </div>
         </div>
       </div>
     );
