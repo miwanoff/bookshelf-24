@@ -45,7 +45,7 @@ class App extends React.Component {
     this.state = {
       books: booksData,
       cart: this.getBookData().length ? this.getBookData() : [],
-      term: "Гаррі",
+      term: "",
     };
   }
 
@@ -104,6 +104,10 @@ class App extends React.Component {
     });
   };
 
+  onUpdateSearch = (term) => {
+    this.setState({ term: term });
+  };
+
   render() {
     const { books, cart, term } = this.state;
     const visibleBooks = this.searchBook(books, term);
@@ -114,7 +118,7 @@ class App extends React.Component {
         <div className="container-fluid text-center">
           <div className="row">
             <div className="search-panel col-3 my-3">
-              <SearchPanel />
+              <SearchPanel  onUpdateSearch={this.onUpdateSearch} />
             </div>
           </div>
           <div className="row justify-content-center">

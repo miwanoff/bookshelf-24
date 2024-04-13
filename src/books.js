@@ -60,7 +60,7 @@ const books = [
     stocked: true,
     name: "Гаррі Поттер і таємна кімната",
     author: "Джоан Роулінг",
-    imageCover: "https://s7.vcdn.biz/static/f/3315446611/image.jpg",
+    imageCover: "https://static.yakaboo.ua/media/cloudflare/product/webp/600x840/4/2/42_1_302.jpg",
     count: 1,
   },
   {
