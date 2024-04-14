@@ -9,10 +9,10 @@ class SortPanel extends Component {
   }
 
   toggleChange = (e) => {
-    // this.setState({
-    //   isChecked: !this.state.isChecked,
-    // });
-    this.state.isChecked = !this.state.isChecked;
+    this.setState({
+      isChecked: !this.state.isChecked,
+    });
+    //this.state.isChecked = !this.state.isChecked;
     this.props.onUpdateSort(this.state.isChecked);
   };
 

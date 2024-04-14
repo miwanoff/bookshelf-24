@@ -126,11 +126,11 @@ class App extends React.Component {
 
   render() {
     const { books, cart, term,  isChecked} = this.state;
-    //const visibleBooks = this.searchBook(books, term);
-    const visibleBooks = this.sortBook(
+    const visibleBooks = this.searchBook(this.sortBook(
       books,
       isChecked
-    );
+    ), term);
+    //const visibleBooks = 
 
     return (
       <div>
