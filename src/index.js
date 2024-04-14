@@ -51,7 +51,7 @@ class App extends React.Component {
     };
   }
 
-  // Отримати данні з LocalStorage
+  // Отримати данні з LocalStorage 111
   getBookData = () => {
     return localStorage.getItem("books")
       ? JSON.parse(localStorage.getItem("books"))
