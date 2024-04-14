@@ -7,6 +7,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Image from "./Image.jsx";
 import SearchPanel from "./SearchPanel.jsx";
+import SortPanel from "./SortPanel.jsx";
 import "./books.css";
 
 // function Hello() {
@@ -46,6 +47,7 @@ class App extends React.Component {
       books: booksData,
       cart: this.getBookData().length ? this.getBookData() : [],
       term: "",
+      isChecked: false,
     };
   }
 
@@ -108,9 +110,28 @@ class App extends React.Component {
     this.setState({ term: term });
   };
 
+  sortBook = (items, isChecked) => {
+    if (isChecked) {
+      return items.sort((a, b) =>
+        a.name < b.name ? -1 : a.name === b.name ? 0 : 1
+      );
+    } else {
+      return items.sort((a, b) => (a.id < b.id ? -1 : a.id === b.id ? 0 : 1));
+    }
+  };
+
+  onUpdateSort = (isChecked) => {
+    this.setState({ isChecked: isChecked });
+  };
+
   render() {
-    const { books, cart, term } = this.state;
-    const visibleBooks = this.searchBook(books, term);
+    const { books, cart, term,  isChecked} = this.state;
+    //const visibleBooks = this.searchBook(books, term);
+    const visibleBooks = this.sortBook(
+      books,
+      isChecked
+    );
+
     return (
       <div>
         <Header className="container-fluid p-5 bg-dark text-primary text-center" />
@@ -118,9 +139,15 @@ class App extends React.Component {
         <div className="container-fluid text-center">
           <div className="row">
             <div className="search-panel col-3 my-3">
-              <SearchPanel  onUpdateSearch={this.onUpdateSearch} />
+              <SearchPanel onUpdateSearch={this.onUpdateSearch} />
             </div>
           </div>
+          <div className="row">
+            <div className="col-3 my-3">
+              <SortPanel onUpdateSort={this.onUpdateSort}/>
+            </div>
+          </div>
+
           <div className="row justify-content-center">
             {visibleBooks.map((book) => {
               // console.log(book.id);
@@ -138,6 +165,7 @@ class App extends React.Component {
             })}
           </div>
         </div>
+
         <div className="container-fluid text-center">
           <h4>Кошик товарів</h4>
           <p>Кількість книг: {cart.length} </p>
